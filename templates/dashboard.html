@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Tổng quan | BookNest{% endblock %}
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">TỔNG QUAN HỆ THỐNG</p>
+        <h1>Thư viện của bạn</h1>
+        <p>Theo dõi đầu sách và danh mục chỉ trong một nơi.</p>
+    </div>
+    <span class="hero-decor" aria-hidden="true">▥</span>
+</section>
+<div class="totals">
+    <div class="total">
+        <a class="total-label" href="{{ url_for('categories') }}">Tổng số danh mục</a>
+        <strong>{{ total_categories }}</strong>
+        <span class="page-description">Danh mục đang quản lý</span>
+    </div>
+    <div class="total">
+        <a class="total-label" href="{{ url_for('books') }}">Tổng số sách</a>
+        <strong>{{ total_books }}</strong>
+        <span class="page-description">Đầu sách trong hệ thống</span>
+    </div>
+</div>
+<div class="section-heading">
+    <h2>Số sách theo danh mục</h2>
+    <span class="section-note">Thống kê cập nhật từ cơ sở dữ liệu</span>
+</div>
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr><th scope="col">Danh mục</th><th scope="col" class="number">Số sách</th></tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr><td>{{ category.name }}</td><td class="number">{{ category.book_count }}</td></tr>
+            {% else %}
+            <tr><td colspan="2" class="empty-tip">Chưa có danh mục.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

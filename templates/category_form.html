@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% set heading = 'Thêm danh mục' if id is none else 'Sửa danh mục' %}
+{% block title %}{{ heading }} | Quản lý sách{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">CẬP NHẬT THƯ VIỆN</p><h1>{{ heading }}</h1><p class="page-description">Điền thông tin vào các ô bên dưới rồi nhấn Lưu.</p></div></div>
+{% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+<form class="entry-form" method="post">
+    <label for="name">Tên danh mục</label>
+    <input id="name" name="name" value="{{ category.name }}" required>
+
+    <label for="description">Mô tả</label>
+    <textarea id="description" name="description" rows="4">{{ category.description or '' }}</textarea>
+
+    <div class="form-actions">
+        <button type="submit">Lưu</button>
+        <a class="button secondary" href="{{ url_for('categories') }}">Hủy</a>
+    </div>
+</form>
+{% endblock %}

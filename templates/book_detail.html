@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Chi tiết sách | Quản lý sách{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <div><p class="eyebrow">THÔNG TIN</p><h1>Chi tiết sách</h1></div>
+    <div class="form-actions">
+        <a class="button secondary" href="{{ url_for('books') }}">Quay lại danh sách sách</a>
+        <a class="button" href="{{ url_for('book_form', id=book.id) }}">Sửa sách</a>
+    </div>
+</div>
+<div class="table-wrapper">
+    <table>
+        <tbody>
+            <tr><th scope="row">Mã sách</th><td>{{ book.id }}</td></tr>
+            <tr><th scope="row">Tên sách</th><td>{{ book.title }}</td></tr>
+            <tr><th scope="row">Tác giả</th><td>{{ book.author or 'Chưa có thông tin' }}</td></tr>
+            <tr><th scope="row">Giá (đ)</th><td>{{ book.price }}</td></tr>
+            <tr><th scope="row">Số lượng</th><td>{{ book.quantity }}</td></tr>
+            <tr><th scope="row">Danh mục</th><td>{{ book.category_name }}</td></tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

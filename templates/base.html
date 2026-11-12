@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#4759a8">
+    <title>{% block title %}Quản lý sách{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="{{ url_for('dashboard') }}" aria-label="Về trang tổng quan">
+                <span class="brand-mark" aria-hidden="true">▤</span>
+                <span class="brand-text">
+                    <span class="site-name">BookNest</span>
+                    <span class="brand-caption">QUẢN LÝ SÁCH</span>
+                </span>
+            </a>
+            <nav aria-label="Điều hướng chính">
+                <a href="{{ url_for('dashboard') }}"{% if request.endpoint == 'dashboard' %} aria-current="page"{% endif %}>Tổng quan</a>
+                <a href="{{ url_for('categories') }}"{% if request.endpoint in ['categories', 'category_detail', 'category_form'] %} aria-current="page"{% endif %}>Danh mục</a>
+                <a href="{{ url_for('books') }}"{% if request.endpoint in ['books', 'book_detail', 'book_form'] %} aria-current="page"{% endif %}>Sách</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="page-footer">BookNest · Ứng dụng quản lý sách</footer>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Danh mục | Quản lý sách{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <div><p class="eyebrow">SẮP XẾP</p><h1>Danh mục sách</h1><p class="page-description">Tổ chức sách theo từng nhóm để dễ tìm kiếm.</p></div>
+    <a class="button" href="{{ url_for('category_form') }}">+ Thêm danh mục</a>
+</div>
+{% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Tên danh mục</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col" class="number">Số sách</th>
+                <th scope="col">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td>{{ category.description or '' }}</td>
+                <td class="number">{{ category.book_count }}</td>
+                <td class="actions">
+                    <a class="button secondary" href="{{ url_for('category_detail', id=category.id) }}">Chi tiết</a>
+                    <a class="button secondary" href="{{ url_for('category_form', id=category.id) }}">Sửa</a>
+                    <form method="post" action="{{ url_for('delete_category', id=category.id) }}"
+                          onsubmit="return confirm('Xóa danh mục này?');">
+                        <button class="danger" type="submit">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4">Chưa có danh mục.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

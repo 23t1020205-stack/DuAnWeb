@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Chi tiết danh mục | Quản lý sách{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <div><p class="eyebrow">THÔNG TIN</p><h1>Chi tiết danh mục</h1></div>
+    <div class="form-actions">
+        <a class="button secondary" href="{{ url_for('categories') }}">Quay lại danh sách danh mục</a>
+        <a class="button" href="{{ url_for('category_form', id=category.id) }}">Sửa danh mục</a>
+    </div>
+</div>
+<div class="table-wrapper">
+    <table>
+        <tbody>
+            <tr><th scope="row">Mã danh mục</th><td>{{ category.id }}</td></tr>
+            <tr><th scope="row">Tên danh mục</th><td>{{ category.name }}</td></tr>
+            <tr><th scope="row">Mô tả</th><td>{{ category.description or 'Chưa có mô tả' }}</td></tr>
+            <tr><th scope="row">Số đầu sách</th><td>{{ books|length }}</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Sách thuộc danh mục</h2>
+{% if books %}
+<ul class="book-list">
+    {% for book in books %}
+    <li><a href="{{ url_for('book_detail', id=book.id) }}">{{ book.title }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Danh mục này chưa có sách.</p>
+{% endif %}
+{% endblock %}

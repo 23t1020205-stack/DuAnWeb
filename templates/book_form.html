@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% set heading = 'Thêm sách' if id is none else 'Sửa sách' %}
+{% block title %}{{ heading }} | Quản lý sách{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">CẬP NHẬT THƯ VIỆN</p><h1>{{ heading }}</h1><p class="page-description">Điền thông tin vào các ô bên dưới rồi nhấn Lưu.</p></div></div>
+{% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+{% if categories %}
+<form class="entry-form" method="post">
+    <label for="title">Tên sách</label>
+    <input id="title" name="title" value="{{ book.title }}" required>
+
+    <label for="author">Tác giả</label>
+    <input id="author" name="author" value="{{ book.author or '' }}">
+
+    <label for="price">Giá sách (đ)</label>
+    <input id="price" name="price" type="number" min="0" step="any" value="{{ book.price }}" required>
+
+    <label for="quantity">Số lượng</label>
+    <input id="quantity" name="quantity" type="number" min="0" step="1" value="{{ book.quantity }}" required>
+
+    <label for="category_id">Danh mục</label>
+    <select id="category_id" name="category_id" required>
+        <option value="">Chọn danh mục</option>
+        {% for category in categories %}
+        <option value="{{ category.id }}"{% if category.id|string == book.category_id|string %} selected{% endif %}>{{ category.name }}</option>
+        {% endfor %}
+    </select>
+
+    <div class="form-actions">
+        <button type="submit">Lưu</button>
+        <a class="button secondary" href="{{ url_for('books') }}">Hủy</a>
+    </div>
+</form>
+{% else %}
+<p>Bạn cần tạo danh mục trước khi thêm sách.</p>
+<a class="button" href="{{ url_for('category_form') }}">Thêm danh mục</a>
+{% endif %}
+{% endblock %}
